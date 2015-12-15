@@ -36,6 +36,30 @@ describe("[Angular-Scope]", function() {
       scope.$digest();
 
       expect(watchFn).toHaveBeenCalledWith(scope);
+    });
+
+    it("calls the listener function when the watched value changes", function(){
+      scope.someValue = 'a';
+      scope.counter = 0;
+
+      scope.$watch(
+        function(scope){ return scope.someValue; },
+        function(newValue, oldValue, scope){ scope.counter++; }
+      );
+
+      expect(scope.counter).toBe(0);
+
+      scope.$digest();
+      expect(scope.counter).toBe(1);
+
+      scope.$digest();
+      expect(scope.counter).toBe(1);
+
+      scope.someValue = 'b';
+      expect(scope.counter).toBe(1);
+
+      scope.$digest();
+      expect(scope.counter).toBe(2);
     })
   });
 
