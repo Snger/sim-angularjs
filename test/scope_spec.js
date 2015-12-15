@@ -27,6 +27,16 @@ describe("[Angular-Scope]", function() {
 
       expect(listenerFn).toHaveBeenCalled();
     });
+
+    it("calls the watch function with the scope as the argument", function(){
+      var watchFn = jasmine.createSpy();
+      var listenerFn = function(){};
+      scope.$watch(watchFn,listenerFn);
+
+      scope.$digest();
+
+      expect(watchFn).toHaveBeenCalledWith(scope);
+    })
   });
 
 });
