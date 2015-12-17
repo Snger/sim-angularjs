@@ -6,10 +6,16 @@ function Scope () {
   this.$$watchers = [];
 }
 
+/* use for initialize the last attribute to be unique
+  -- javascript function is reference value.
+ */
+function initWatchVal() {}
+
 Scope.prototype.$watch = function(watchFn, listenerFn) {
   var watcher = {
     watchFn: watchFn,
-    listenerFn: listenerFn
+    listenerFn: listenerFn,
+    last: initWatchVal
   };
   this.$$watchers.push(watcher);
 };

@@ -60,6 +60,18 @@ describe("[Angular-Scope]", function() {
 
       scope.$digest();
       expect(scope.counter).toBe(2);
+    });
+
+    it("calls listener when watch value is first undefined", function(){
+      scope.counter = 0;
+
+      scope.$watch(
+        function(scope){ return scope.someValue; },
+        function(newValue, oldValue, scope){ scope.counter++; }
+      );
+
+      scope.$digest();
+      expect(scope.counter).toBe(1);
     })
   });
 
