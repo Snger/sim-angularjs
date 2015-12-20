@@ -94,6 +94,35 @@ describe("[Angular-Scope]", function() {
       scope.$digest();
 
       expect(watchFn).toHaveBeenCalled();
+    });
+
+    it("trigger chained watchers in the same $digest", function(){
+      scope.name = "Sim";
+
+      scope.$watch(
+        function(scope){ return scope.nameUpper; },
+        function(newValue, oldValue, scope){
+          if (newValue) {
+            scope.initial = newValue.substring(0, 1) + '.';
+          };
+        }
+      );
+
+      scope.$watch(
+        function(scope){ return scope.name; },
+        function(newValue, oldValue, scope){
+          if (newValue) {
+            scope.nameUpper = newValue.toUpperCase();
+          };
+        }
+      );
+
+      scope.$digest();
+      expect(scope.initial).toBe("S.");
+
+      scope.name = "Jiason";
+      scope.$digest();
+      expect(scope.initial).toBe("J.");
     })
   });
 
