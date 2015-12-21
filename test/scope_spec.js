@@ -188,5 +188,25 @@ describe("[Angular-Scope]", function() {
       expect(scope.counter).toBe(1);
     });
 
+    it("compares based on value if enabled", function(){
+      scope.aValue = [0,1,2];
+      scope.counter = 0;
+
+      scope.$watch(
+        function(scope){ return scope.aValue; },
+        function(newValue, oldValue, scope){
+          scope.counter++;
+        },
+        true
+      );
+
+      scope.$digest();
+      expect(scope.counter).toBe(1);
+
+      scope.aValue.push(3);
+      scope.$digest();
+      expect(scope.counter).toBe(2);
+    });
+
   });
 });
