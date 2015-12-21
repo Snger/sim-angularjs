@@ -144,6 +144,28 @@ describe("[Angular-Scope]", function() {
       );
 
       expect((function(){ scope.$digest();})).toThrow();
+    });
+
+    it("ends the digest when the last watch is clean", function(){
+      scope.array = _.range(100);
+      var watchExcutions = 0;
+
+      _.times(100, function(i) {
+        scope.$watch(
+          function(scope){
+            watchExcutions++;
+            return scope.array[i];
+          },
+          function(newValue, oldValue, scope){}
+        );
+      });
+
+      scope.$digest();
+      expect(watchExcutions).toBe(200);
+
+      scope.array[0] = 666;
+      scope.$digest();
+      expect(watchExcutions).toBe(301);
     })
 
   });
