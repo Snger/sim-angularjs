@@ -227,4 +227,33 @@ describe("[Angular-Scope]", function() {
     });
 
   });
+
+  describe("$eval", function(){
+    var scope;
+
+    beforeEach(function(){
+      scope = new Scope();
+    });
+
+    it("executes $eval'ed function and return result", function(){
+      scope.aValue = 26;
+
+      var result = scope.$eval(function(scope){
+        return scope.aValue;
+      });
+
+      expect(scope.aValue).toBe(26);
+    });
+
+    it("passes the second $eval argument straight through", function(){
+      scope.aValue = 26;
+
+      var result = scope.$eval(function(scope, arg){
+        return scope.aValue + arg;
+      }, 27);
+
+      expect(result).toBe(53);
+    });
+
+  });
 });
