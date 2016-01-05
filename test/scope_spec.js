@@ -1,5 +1,5 @@
-/* jshint globalstrict: true */
-/* global Scope: false */
+/* jshint globalstrict: true, unused: false */
+/* global Scope */
 
 'use strict';
 
@@ -104,7 +104,7 @@ describe("[Angular-Scope]", function() {
         function(newValue, oldValue, scope){
           if (newValue) {
             scope.initial = newValue.substring(0, 1) + '.';
-          };
+          }
         }
       );
 
@@ -113,7 +113,7 @@ describe("[Angular-Scope]", function() {
         function(newValue, oldValue, scope){
           if (newValue) {
             scope.nameUpper = newValue.toUpperCase();
-          };
+          }
         }
       );
 
@@ -180,7 +180,7 @@ describe("[Angular-Scope]", function() {
             function(newValue, oldValue, scope){
               scope.counter++;
             }
-          )
+          );
         }
       );
 
@@ -469,7 +469,7 @@ describe("[Angular-Scope]", function() {
         function(newValue, oldValue, scope){
           scope.$applyAsync(function(scope){
             scope.asyncApplied = true;
-          })
+          });
         }
       );
 
