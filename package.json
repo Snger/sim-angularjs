@@ -1,5 +1,15 @@
 {
   "name": "sim-angularjs",
+  "author": "Sim Jiason <sjs.stef@gmail.com> (http://blog.thkly.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Snger/sim-angularjs.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Snger/sim-angularjs/blob/master/README.md",
+  "bugs": {
+    "url": "https://github.com/Snger/sim-angularjs/issues"
+  },
   "version": "0.1.0",
   "devDependencies": {
     "cz-conventional-changelog": "^1.1.5",
@@ -11,6 +21,12 @@
   "scripts": {
     "commit": "git-cz"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Snger/sim-angularjs/blob/master/LICENSE"
+    }
+  ],
   "dependencies": {
     "lodash": "~3.7.0",
     "jquery": "~2.1.3"
