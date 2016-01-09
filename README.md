@@ -10,3 +10,4 @@ This repository contains the AngularJS implementation built during the course of
 - [cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog) - Part of the commitizen family. Prompts for conventional changelog standard.
 - [ghooks](https://github.com/gtramontina/ghooks) - Simple git hooks.
 - [validate-commit-msg](https://github.com/kentcdodds/validate-commit-msg) - githook to validate commit messages are up to standard.
+- [conventional-changelog](https://github.com/ajoslin/conventional-changelog) - Generate a changelog from git metadata.
