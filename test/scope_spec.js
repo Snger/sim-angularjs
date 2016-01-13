@@ -279,6 +279,33 @@ describe("[Angular-Scope]", function() {
       expect(watchCalls).toEqual(['first', 'second', 'third', 'first', 'third']);
     });
 
+    it("allows a $watch to destroy another during digest", function(){
+      scope.aValue = 'abc';
+      scope.counter = 0;
+
+      scope.$watch(
+        function(scope){
+          return scope.aValue;
+        },
+        function(newValue, oldValue, scope){
+          destroyWatch();
+        }
+      );
+      var destroyWatch = scope.$watch(
+        function(scope){ },
+        function(newValue, oldValue, scope){ }
+      );
+      scope.$watch(
+        function(scope){ return scope.aValue; },
+        function(newValue, oldValue, scope){
+          scope.counter++;
+        }
+      );
+
+      scope.$digest();
+      expect(scope.counter).toBe(1);
+    });
+
   });
 
   describe("$eval", function(){
