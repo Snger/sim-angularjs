@@ -306,6 +306,27 @@ describe("[Angular-Scope]", function() {
       expect(scope.counter).toBe(1);
     });
 
+    it("allows destroying several $watches during digest", function(){
+      scope.aValue = 'abc';
+      scope.counter = 0;
+
+      var destroyWatch1 = scope.$watch(
+        function(scope){
+          destroyWatch1();
+          destroyWatch2();
+        }
+      );
+      var destroyWatch2 = scope.$watch(
+        function(scope){ return scope.aValue; },
+        function(newValue, oldValue, scope){
+          scope.counter++;
+        }
+      );
+
+      scope.$digest();
+      expect(scope.counter).toBe(0);
+    });
+
   });
 
   describe("$eval", function(){
