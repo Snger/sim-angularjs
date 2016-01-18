@@ -795,4 +795,33 @@ describe("[Angular-Scope]", function() {
     });
 
   });
+
+  describe("$watchGroup", function(){
+    var scope;
+
+    beforeEach(function(){
+      scope = new Scope();
+    });
+
+    it("takes watches as an array and calls listener with arrays", function() {
+      var gotNewValues, gotOldValues;
+      scope.aValue = 1;
+      scope.anotherValue = 2;
+
+      scope.$watchGroup([
+          function(scope) { return scope.aValue; },
+          function(scope) { return scope.anotherValue; }
+        ],
+        function(newValues, oldValues, scope) {
+          gotNewValues = newValues;
+          gotOldValues = oldValues;
+        }
+      );
+
+      scope.$digest();
+      expect(gotNewValues).toEqual([1, 2]);
+      expect(gotOldValues).toEqual([1, 2]);
+    });
+
+  });
 });
