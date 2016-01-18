@@ -46,6 +46,19 @@ Scope.prototype.$watch = function(watchFn, listenerFn, valueEq) {
   };
 };
 
+Scope.prototype.$watchGroup = function(watchFns, listenerFn){
+  var self = this;
+  var newValues = new Array(watchFns.length);
+  var oldValues = new Array(watchFns.length);
+  _.forEach(watchFns, function(watchFn, i){
+    self.$watch(watchFn, function(newValue, oldValue){
+      newValues[i] = newValue;
+      oldValues[i] = oldValue;
+      listenerFn(newValues, oldValues, self);
+    });
+  });
+};
+
 Scope.prototype.$$digestOnce = function() {
 	var self = this;
   var newValue,oldValue,dirty;
