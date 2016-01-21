@@ -841,5 +841,47 @@ describe("[Angular-Scope]", function() {
       expect(counter).toBe(1);
     });
 
+    it("uses the same array of old and new values on first run", function(){
+      var gotNewValues, gotOldValues;
+      scope.aValue = 1;
+      scope.anotherValue = 2;
+
+      scope.$watchGroup([
+          function(scope) { return scope.aValue; },
+          function(Scope) { return scope.anotherValue; }
+        ],
+        function(newValues, oldValues, scope) {
+          gotNewValues = newValues;
+          gotOldValues = oldValues;
+        }
+      );
+
+      scope.$digest();
+      expect(gotNewValues).toBe(gotOldValues);
+    });
+
+    it("uses different arrays for old and new values on subsequent runs", function(){
+      var gotNewValues, gotOldValues;
+      scope.aValue = 1;
+      scope.anotherValue = 2;
+
+      scope.$watchGroup([
+          function(scope) { return scope.aValue; },
+          function(Scope) { return scope.anotherValue; }
+        ],
+        function(newValues, oldValues, scope) {
+          gotNewValues = newValues;
+          gotOldValues = oldValues;
+        }
+      );
+
+      scope.$digest();
+      scope.anotherValue = 3;
+      scope.$digest();
+
+      expect(gotNewValues).toEqual([1, 3]);
+      expect(gotOldValues).toEqual([1, 2]);
+    });
+
   });
 });
